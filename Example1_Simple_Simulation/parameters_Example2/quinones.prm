@@ -1,0 +1,77 @@
+!Parameters for Quinone taken from SI2_CHARMM_parameter_file.prm
+!that was used for the bc1-complex.
+!only those which are needed.
+
+BONDS
+!
+!V(bond) = Kb(b - b0)**2
+!
+!Kb: kcal/mole/A**2
+!b0: A
+!
+!atom type Kb          b0
+!
+!Carbon Dioxide
+  
+HA    CT3    322.000   1.1110 ! ALLOW   ALI, alkane update, adm jr., 3/2/92
+HA   CT2   309.000     1.1110 ! ALLOW   ALI, alkane update, adm jr., 3/2/92
+CA    O      519.7     1.275     
+CA   OS      372.4     1.373 
+
+O H     545.000     0.9600 ! ALLOW   ALC ARO, Bond of TYR OH group taken from par_all36_prot.prm
+                              ! EMB 11/21/89 methanol vib fit
+
+ANGLES
+!
+!V(angle) = Ktheta(Theta - Theta0)**2
+!
+!V(Urey-Bradley) = Kub(S - S0)**2
+!
+!Ktheta: kcal/mole/rad**2
+!Theta0: degrees
+!Kub: kcal/mole/A**2 (Urey-Bradley)
+!S0: A
+!
+!atom types     Ktheta    Theta0   Kub     S0
+
+CA  CA  O     40.000   120.00    ! from "OC CA CA", ALLOW  POL ARO, adm jr. 8/27/91, phenoxide
+CA  CA  OS    40.000   119.20    ! from  OC   CA   CA       	                           
+CA  OS  CT3   40.000   112.19    ! from "CL OSL CTL3", methyl acetate
+CA  CT3 CT2   51.800   107.50    ! from "CT3 CT2 CA", ALLOW	ALI ARO
+CT2 CT3 CT3   58.000   115.00    8.00   2.56100 ! from "CT3 CT2 CT2, ALLOW   ALI
+HA   CT3  CT2  34.600  110.10   22.53   2.17900 ! ALLOW   ALI, alkane update, adm jr., 3/2/92
+HA   CT3  CT3  37.500  110.10   22.53   2.17900 ! ALLOW   ALI, alkane update, adm jr., 3/2/92
+HA   CT3  CA     49.300   107.5000 ! ALLOW   ALI ARO, toluene, adm jr. 3/7/92
+HA   CT3  HA    35.500    108.40    5.40   1.80200 ! ALLOW   ALI, alkane update, adm jr., 3/2/92
+OS   CT3  HA     60.000   109.5000 ! ALLOW PEP POL, adm jr. 4/05/91, for PRES CT1 from methyl acetate
+HA   CT2  CT3   34.600    110.10   22.53   2.17900 ! ALLOW   ALI, alkane update, adm jr., 3/2/92
+HA   CT2  CT2   26.500    110.10   22.53   2.17900 ! ALLOW   ALI, alkane update, adm jr., 3/2/92
+
+H  O  CA     65.000   108.0000 ! ALLOW   ALC ARO, Angle of TYR OH group taken from par_all36_prot.prm
+                                   ! JES 8/25/89 phenol
+
+
+DIHEDRALS
+!
+!V(dihedral) = Kchi(1 + cos(n(chi) - delta))
+!
+!Kchi: kcal/mole
+!n: multiplicity
+!delta: degrees
+!
+!atom types             Kchi    n   delta
+!
+
+
+CA  CA  CA  OS  3.1000  2   180.00  ! CA   CA   CA   CA       3.1000  2   180.00 ! ALLOW   ARO
+CT3  CA  CA  O      3.1000  2   180.00 ! ALLOW   ARO   CT3  CA   CA   CA  
+CT3  CA  CA  CT3  3.1000  2   180.00 ! ALLOW   ARO   CT3  CA   CA   CA 
+CA  CA  OS  CT3   1.8  2  180 
+O  CA  CA  CA    3.1000  2   180.00  ! CA   CA   CA   CA       3.1000  2   180.00 ! ALLOW   ARO
+O  CA  CA  OS  3.1000  2   180.00  ! CA   CA   CA   CA       3.1000  2   180.00 ! ALLOW   ARO
+X CA CA X  3.1000  2   180.00  ! CA   CA   CA   CA       3.1000  2   180.00 ! ALLOW   ARO
+
+
+H O CA CA       0.9900  2   180.00 ! ALLOW   ARO ALC, Dihedral of TYR OH group taken from par_all36_prot.prm
+                ! phenol OH rot bar, 3.37 kcal/mole, adm jr. 3/7/92
+

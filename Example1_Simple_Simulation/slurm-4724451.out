@@ -1,0 +1,13 @@
+
+[1;33;40mWarning:[0m Soft block limit (3 TiB) for Work by nipjonhu exceeded. Grace Period: 1w1d23h15m29s
+[1;33;40mWarning:[0m Soft inode use limit (2.048 k) for Perm by nipjonhu exceeded. Grace Period: 2w
+
+
+Loading HLRNenv
+  Loading requirement: sw.skl slurm
+Module for VMD 1.9.3 loaded.
+Module for Intel(R) MPI Library 2018.4 loaded.
+Module for NAMD 2.13 loaded.
+Starting NAMD run.
+Running minimize with stage number 01
+Starting calculation in stage 01.

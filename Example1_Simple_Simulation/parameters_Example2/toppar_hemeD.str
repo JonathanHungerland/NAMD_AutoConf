@@ -1,0 +1,541 @@
+* Topology and Parameter Stream File for heme and related
+* ligands and patches.
+*
+
+!updated 2016/2, allow for use of AUTOGENERATE ANGLE DIHEDRAl PATCH
+
+!Parent files that have to be read prior to streaming this file
+!top_all36_prot.rtf
+!par_all36_prot.prm
+!top_all36_prot_heme.str
+
+!Testcase
+!test_all36_prot_heme.inp
+
+read rtf card append
+* Topology for heme and related compounds and patches
+*
+31  1
+
+MASS  -1  CPA       12.01100 C  ! heme alpha-C
+MASS  -1  CPB       12.01100 C  ! heme beta-C
+MASS  -1  CPM       12.01100 C  ! heme meso-C
+MASS  -1  FE        55.84700 Fe ! heme iron 56
+MASS  -1  NPH       14.00700 N  ! heme pyrrole N
+MASS  -1  OM        15.99900 O  ! heme CO/O2 oxygen
+
+RESI HDD  -2.00      ! 6-liganded planar heme-D for coordination with His and Oxy
+! standard partial charges are taken from HEME residue in toppar_all36_prot_heme.str
+! partial charges of the gamma lactone are taken from swissparam.ch and scaled
+! so that they have the same sum as the respective region in the HEME-Residue in
+! toppar_all36_prot_heme.str . charges of added hydrogens to replace dangling bonds
+! are summed into heavy atoms.
+! bonds between lactone-N and non-lactone C as well as lactone-C and non-lactone are 
+! mimiced to be the same as in the standard-heme.
+! angles and dihedrals of the lactone-ring are taken from swissparam.ch.
+! 
+! The following atoms are considered to be part of the lactone-ring:
+! ND(+H in parametrization), C1D(+2H in parametrization), C4D(+2H in parametrization)
+! C3D, O1D, CGD, O2D, CBD, HBD1, HBD2, CAD, HAD1, HAD2
+!
+! partial charges will be changed in a patch with His-Heme-Oxy coordination
+! 
+GROUP   
+ATOM FE   FE      0.24 !       O2A   O1A             
+ATOM NA   NPH    -0.18 !         \\ //                 
+ATOM NB   NPH    -0.18 !          CGA                 O2D
+ATOM NC   NPH    -0.18 !           |                  ||      /HBD1
+ATOM ND   NPH    -0.18 !    HBA1--CBA--HBA2  HA       CGD--CBD-HBD2
+ATOM C1A  CPA     0.12 !           |          |        /    \
+ATOM C2A  CPB    -0.06 !    HAA1--CAA-HAA2  _CHA_    O1D    CAD-HAD1
+ATOM C3A  CPB    -0.06 !           |       /     \      \  /   \HAD2
+ATOM C4A  CPA     0.12 !          C2A---C1A       C4D---C3D
+ATOM C1B  CPA     0.12 !           |     |         |     |    
+ATOM C2B  CPB    -0.06 !HMA1\      |     |         |     | /OND-HND      
+ATOM C3B  CPB    -0.06 !HMA2-CMA--C3A    NA       ND    C2D
+ATOM C4B  CPA     0.12 !HMA3/       \   / \       / \   /  \CMD-HMD1       
+ATOM C1C  CPA     0.12 !             C4A   \     /   C1D       \HMD2
+ATOM C2C  CPB    -0.06 !            /       \   /       \       \HMD3
+ATOM C3C  CPB    -0.06 !      HB--CHB        FE         CHD--HD
+ATOM C4C  CPA     0.12 !            \       /   \       /
+ATOM C1D  CPA     0.12 !             C1B   /     \   C4C        HAC
+ATOM C2D  CPB    -0.06 !HMB1\       /   \ /       \ /   \       /
+ATOM C3D  CPB    -0.06 !HMB2-CMB--C2B    NB       NC    C3C--CAC
+ATOM C4D  CPA     0.12 !HMB3/      |     |         |     |     \\  /HBC1
+GROUP                  !           |     |         |     |      CBC
+ATOM CHA  CPM    -0.10 !          C3B---C4B       C1C---C2C        \HBC2
+ATOM HA   HA      0.10 !           |       \_CHC_/       |
+GROUP                  !          CAB         |         CMC--HMC3
+ATOM CHB  CPM    -0.10 !         //  \        HC       /  | 
+ATOM HB   HA      0.10 !        CBB  HAB           HMC1  HMC2
+GROUP                  !       /   \
+ATOM CHC  CPM    -0.10 !    HBB1  HBB2
+ATOM HC   HA      0.10 !
+GROUP   
+ATOM CHD  CPM    -0.10
+ATOM HD   HA      0.10
+GROUP   
+ATOM CMA  CT3    -0.27
+ATOM HMA1 HA3     0.09
+ATOM HMA2 HA3     0.09
+ATOM HMA3 HA3     0.09
+GROUP   
+ATOM CAA  CT2    -0.18
+ATOM HAA1 HA2     0.09
+ATOM HAA2 HA2     0.09
+GROUP   
+ATOM CBA  CT2    -0.28
+ATOM HBA1 HA2     0.09
+ATOM HBA2 HA2     0.09
+ATOM CGA  CC      0.62
+ATOM O1A  OC     -0.76
+ATOM O2A  OC     -0.76
+GROUP   
+ATOM CMB  CT3    -0.27
+ATOM HMB1 HA3     0.09
+ATOM HMB2 HA3     0.09
+ATOM HMB3 HA3     0.09
+GROUP   
+ATOM CAB  CE1    -0.15 !vinyl parameters updated, adm jr., May 2002
+ATOM HAB  HE1     0.15
+GROUP
+ATOM CBB  CE2    -0.42
+ATOM HBB1 HE2     0.21
+ATOM HBB2 HE2     0.21
+GROUP   
+ATOM CMC  CT3    -0.27
+ATOM HMC1 HA3     0.09
+ATOM HMC2 HA3     0.09
+ATOM HMC3 HA3     0.09
+GROUP   
+ATOM CAC  CE1    -0.15
+ATOM HAC  HE1     0.15
+GROUP
+ATOM CBC  CE2    -0.42
+ATOM HBC1 HE2     0.21
+ATOM HBC2 HE2     0.21
+GROUP   
+ATOM CMD  CT3    -0.27
+ATOM HMD1 HA3     0.09
+ATOM HMD2 HA3     0.09
+ATOM HMD3 HA3     0.09
+GROUP !the additional oxygen at C2D FOR THE D-GROUP
+!sum of this group: -0.28
+ATOM OND  OR     -0.6800
+ATOM HND  HOR     0.4000
+GROUP !the lactone-ring, charge -0.72.
+! charge distribution of oxygens is taken from swissparam and then scaled to
+! fit the group-charge -0.72. the charge of CAD and CBD was averaged, to take the
+! ring-structure into account.
+ATOM CAD  CR     -0.23
+ATOM HAD1 HCMM    0.09
+ATOM HAD2 HCMM    0.09
+ATOM CBD  CR     -0.23
+ATOM HBD1 HCMM    0.09
+ATOM HBD2 HCMM    0.09
+ATOM CGD  C=O     0.66
+ATOM O2D  O=C    -0.73
+ATOM O1D  OR     -0.55
+BOND O1D C3D   C2D OND   OND HND !additional bonds for HEME-D
+BOND FE  NA    FE  NB    FE  NC    FE  ND    NA  C1A   
+BOND C1A C2A   C2A C3A   C3A C4A   NA  C4A   C2A CAA   
+BOND CAA CBA   CBA CGA   CGA O1A   CGA O2A   C3A CMA   
+BOND CHB C4A   CHB C1B   NB  C1B   C1B C2B   C2B C3B   
+BOND C3B C4B   NB  C4B   C2B CMB   C3B CAB   CAB CBB   
+BOND CHC C4B   CHC C1C   NC  C1C   C1C C2C   C2C C3C   
+BOND C3C C4C   NC  C4C   C2C CMC   C3C CAC   CAC CBC   
+BOND CHD C4C   CHD C1D   ND  C1D   C1D C2D   C2D C3D   
+BOND C3D C4D   ND  C4D   C2D CMD   C3D CAD   CAD CBD   
+BOND CBD CGD   CGD O1D   CGD O2D   CHA C4D   CHA C1A   
+BOND CHA HA    CHB HB    CHC HC    CHD HD   
+BOND CAA HAA1  CAA HAA2  CBA HBA1  CBA HBA2   
+BOND CMA HMA1  CMA HMA2  CMA HMA3   
+BOND CMB HMB1  CMB HMB2  CMB HMB3   
+BOND CAB HAB   CBB HBB1  CBB HBB2   
+BOND CMC HMC1  CMC HMC2  CMC HMC3   
+BOND CAC HAC   CBC HBC1  CBC HBC2   
+BOND CMD HMD1  CMD HMD2  CMD HMD3   
+BOND CAD HAD1  CAD HAD2  CBD HBD1  CBD HBD2 
+IMPR C2A C1A C3A CAA  C3A C2A C4A CMA  C2B C1B C3B CMB   
+IMPR C3B C2B C4B CAB  C2C C1C C3C CMC  C3C C2C C4C CAC   
+IMPR C2D C1D C3D CMD  C3D C2D C4D CAD  
+IMPR CGA CBA O2A O1A  CGD CBD O2D O1D
+IMPR C4A NA C1A C2A  C1A NA C4A C3A   
+IMPR C4B NB C1B C2B  C1B NB C4B C3B   
+IMPR C4C NC C1C C2C  C1C NC C4C C3C   
+IMPR C4D ND C1D C2D  C1D ND C4D C3D   
+IMPR NA C1A C2A C3A  NA C4A C3A C2A   
+IMPR NB C1B C2B C3B  NB C4B C3B C2B   
+IMPR NC C1C C2C C3C  NC C4C C3C C2C   
+IMPR ND C1D C2D C3D  ND C4D C3D C2D   
+IMPR NA C1A CHA C4D  NA C4A CHB C1B   
+IMPR NB C1B CHB C4A  NB C4B CHC C1C   
+IMPR NC C1C CHC C4B  NC C4C CHD C1D   
+IMPR ND C1D CHD C4C  ND C4D CHA C1A   
+IMPR CHA C1A C4D HA   
+IMPR CHB C1B C4A HB   
+IMPR CHC C1C C4B HC   
+IMPR CHD C1D C4C HD   
+IMPR C1A C2A CHA NA  C4A C3A CHB NA   
+IMPR C1B C2B CHB NB  C4B C3B CHC NB   
+IMPR C1C C2C CHC NC  C4C C3C CHD NC   
+IMPR C1D C2D CHD ND  C4D C3D CHA ND   
+IMPR NA C1A C4A FE   
+IMPR NB C1B C4B FE   
+IMPR NC C1C C4C FE   
+IMPR ND C1D C4D FE   
+!No vinyl impropers in update
+!IMPR CAB CBB C3B HAB  HAB CAB CBB HBB2  CAB CBB HBB2 HBB1   
+!IMPR CAC CBC C3C HAC  HAC CAC CBC HBC2  CAC CBC HBC2 HBC1   
+ACCEPTOR NA   
+ACCEPTOR O1A    ! CGA
+ACCEPTOR O2A    ! CGA
+ACCEPTOR NB   
+ACCEPTOR NC   
+ACCEPTOR ND   
+ACCEPTOR O1D    ! CGD
+ACCEPTOR O2D    ! CGD
+IC FE   NA   C4A  C3A   0.0000  0.0000  180.0000  0.0000  0.0000
+IC C3A  C4A  NA   C1A   0.0000  0.0000    0.0000  0.0000  0.0000
+IC FE   NA   C1A  C2A   0.0000  0.0000  180.0000  0.0000  0.0000
+IC C4A  NA   FE   NB    0.0000  0.0000    0.0000  0.0000  0.0000
+IC NA   FE   NB   C1B   0.0000  0.0000    0.0000  0.0000  0.0000
+IC FE   NB   C1B  C2B   0.0000  0.0000  180.0000  0.0000  0.0000
+IC C2B  C1B  NB   C4B   0.0000  0.0000    0.0000  0.0000  0.0000
+IC FE   NB   C4B  C3B   0.0000  0.0000  180.0000  0.0000  0.0000
+IC C4B  NB   FE   NC    0.0000  0.0000    0.0000  0.0000  0.0000
+IC NB   FE   NC   C1C   0.0000  0.0000    0.0000  0.0000  0.0000
+IC FE   NC   C1C  C2C   0.0000  0.0000  180.0000  0.0000  0.0000
+IC C2C  C1C  NC   C4C   0.0000  0.0000    0.0000  0.0000  0.0000
+IC FE   NC   C4C  C3C   0.0000  0.0000  180.0000  0.0000  0.0000
+IC C4C  NC   FE   ND    0.0000  0.0000    0.0000  0.0000  0.0000
+IC NC   FE   ND   C1D   0.0000  0.0000    0.0000  0.0000  0.0000
+IC FE   ND   C1D  C2D   0.0000  0.0000  180.0000  0.0000  0.0000
+IC C2D  C1D  ND   C4D   0.0000  0.0000    0.0000  0.0000  0.0000
+IC FE   ND   C4D  C3D   0.0000  0.0000  180.0000  0.0000  0.0000
+IC C4A  NA   FE   CHB   0.0000  0.0000    0.0000  0.0000  0.0000
+IC NA   FE   CHB  HB    0.0000  0.0000    0.0000  0.0000  0.0000
+IC C4B  NB   FE   CHC   0.0000  0.0000    0.0000  0.0000  0.0000
+IC NB   FE   CHC  HC    0.0000  0.0000    0.0000  0.0000  0.0000
+IC C4C  NC   FE   CHD   0.0000  0.0000    0.0000  0.0000  0.0000
+IC NC   FE   CHD  HD    0.0000  0.0000    0.0000  0.0000  0.0000
+IC C4D  ND   FE   CHA   0.0000  0.0000    0.0000  0.0000  0.0000
+IC ND   FE   CHA  HA    0.0000  0.0000    0.0000  0.0000  0.0000
+IC C3B  C1B  *C2B CMB   0.0000  0.0000  180.0000  0.0000  0.0000
+IC C4B  C2B  *C3B CAB   0.0000  0.0000  180.0000  0.0000  0.0000
+IC C2B  C3B  CAB  CBB   0.0000  0.0000  -45.0000  0.0000  0.0000 ! PREVENTS VINYL COLLISION
+IC CHC  C1C  C2C  CMC   0.0000  0.0000    0.0000  0.0000  0.0000
+IC C4C  C2C  *C3C CAC   0.0000  0.0000  180.0000  0.0000  0.0000
+IC C2C  C3C  CAC  CBC   0.0000  0.0000  -45.0000  0.0000  0.0000 ! PREVENTS VINYL COLLISION
+IC C4D  C2D  *C3D CAD   0.0000  0.0000  180.0000  0.0000  0.0000
+IC C3D  C1D  *C2D CMD   0.0000  0.0000  180.0000  0.0000  0.0000
+IC C2D  C3D  CAD  CBD   0.0000  0.0000 -120.0000  0.0000  0.0000
+IC C3D  CAD  CBD  CGD   0.0000  0.0000  180.0000  0.0000  0.0000
+IC CAD  CBD  CGD  O1D   0.0000  0.0000    0.0000  0.0000  0.0000
+IC CAD  CBD  CGD  O2D   0.0000  0.0000  180.0000  0.0000  0.0000
+IC C4A  C2A  *C3A CMA   0.0000  0.0000  180.0000  0.0000  0.0000
+IC C3A  C1A  *C2A CAA   0.0000  0.0000  180.0000  0.0000  0.0000
+IC C1A  C2A  CAA  CBA   0.0000  0.0000  120.0000  0.0000  0.0000
+IC C2A  CAA  CBA  CGA   0.0000  0.0000  180.0000  0.0000  0.0000
+IC CAA  CBA  CGA  O1A   0.0000  0.0000    0.0000  0.0000  0.0000
+IC CAA  CBA  CGA  O2A   0.0000  0.0000  180.0000  0.0000  0.0000
+IC C3C  C1C  *C2C CMC   0.0000  0.0000  180.0000  0.0000  0.0000
+IC CBA  O1A  *CGA O2A   0.0000  0.0000  180.0000  0.0000  0.0000
+IC CBD  O1D  *CGD O2D   0.0000  0.0000  180.0000  0.0000  0.0000
+PATCHING FIRS NONE LAST NONE   
+
+PRES HDRO -1.00  ! patching Histidine-HemeD-Oxy reduced configuration
+                 ! residues must be 1-His 2-HDD 3-Oxy
+!we are altering all partial charges according to the result 
+!of the pbe0/6-31(d')-calculation
+DELETE ATOM 1HD1
+BOND 1NE2 2FE    2FE 3O1
+GROUP  
+!sum of this group: 1.248-0.290-0.139-0.451-0.692=-0.324  (iron+nitrogens)
+                         +0.447-0.363+0.380-0.264= 0.200  (A-carbons)
+                         -0.245+0.349-0.160+0.028=-0.028  (B-carbons)
+                         -0.115+0.345-0.207+0.353= 0.376  (C-carbons)
+                          0.190+0.531-0.059+0.503= 1.165  (D-carbons)
+                                     -0.667+0.385=-0.282  (CHA-group)
+                                      0.030+0.123= 0.153  (CHB-group)
+                                     -0.116+0.131= 0.015  (CHC-group)
+                                     -0.407+0.163=-0.244  (CHD-group)
+                   -0.324+0.200-0.028+0.376+1.165= 1.389  (without CHX-groups)
+                    1.389-0.282+0.153+0.015-0.244= 1.031  (whole porphyrin)
+ATOM 2FE   FE      1.248!       O2A   O1A             
+ATOM 2NA   NPH    -0.290!         \\ //                 
+ATOM 2NB   NPH    -0.139!          CGA                 O2D
+ATOM 2NC   NPH    -0.451!           |                  ||      /HBD1
+ATOM 2ND   NPH    -0.692!    HBA1--CBA--HBA2  HA       CGD--CBD-HBD2
+ATOM 2C1A  CPA     0.447!           |          |        /    \
+ATOM 2C2A  CPB    -0.363!    HAA1--CAA-HAA2  _CHA_    O1D    CAD-HAD1
+ATOM 2C3A  CPB     0.380!           |       /     \      \  /   \HAD2
+ATOM 2C4A  CPA    -0.264!          C2A---C1A       C4D---C3D
+ATOM 2C1B  CPA    -0.245!           |     |         |     |    
+ATOM 2C2B  CPB     0.349!HMA1\      |     |         |     | /OND-HND      
+ATOM 2C3B  CPB    -0.160!HMA2-CMA--C3A    NA       ND    C2D
+ATOM 2C4B  CPA     0.028!HMA3/       \   / \       / \   /  \CMD-HMD1       
+ATOM 2C1C  CPA    -0.115!             C4A   \     /   C1D       \HMD2
+ATOM 2C2C  CPB     0.345!            /       \   /       \       \HMD3
+ATOM 2C3C  CPB    -0.207!      HB--CHB        FE         CHD--HD
+ATOM 2C4C  CPA     0.353!            \       /   \       /
+ATOM 2C1D  CPA     0.190!             C1B   /     \   C4C        HAC
+ATOM 2C2D  CPB     0.531!HMB1\       /   \ /       \ /   \       /
+ATOM 2C3D  CPB    -0.059!HMB2-CMB--C2B    NB       NC    C3C--CAC
+ATOM 2C4D  CPA     0.503!HMB3/      |     |         |     |     \\  /HBC1
+GROUP                   !           |     |         |     |      CBC
+ATOM 2CHA  CPM    -0.667!          C3B---C4B       C1C---C2C        \HBC2
+ATOM 2HA   HA      0.385!           |       \_CHC_/       |
+GROUP                   !          CAB         |         CMC--HMC3
+ATOM 2CHB  CPM     0.030!         //  \        HC       /  | 
+ATOM 2HB   HA      0.123!        CBB  HAB           HMC1  HMC2
+GROUP                   !       /   \
+ATOM 2CHC  CPM    -0.116!    HBB1  HBB2
+ATOM 2HC   HA      0.131!
+GROUP   
+ATOM 2CHD  CPM    -0.407
+ATOM 2HD   HA      0.163
+GROUP   !A-CT3-group
+!sum of this group: -0.567+0.15*3=-0.117
+ATOM 2CMA  CT3    -0.567
+ATOM 2HMA1 HA3     0.150
+ATOM 2HMA2 HA3     0.150
+ATOM 2HMA3 HA3     0.150
+GROUP   !A-proprionate
+!sum of this group: 0.099+0.019*2-0.279+0.083*2+0.633-0.594*2=-0.531
+ATOM 2CAA  CT2     0.099
+ATOM 2HAA1 HA2     0.019
+ATOM 2HAA2 HA2     0.019 
+ATOM 2CBA  CT2    -0.279
+ATOM 2HBA1 HA2     0.083
+ATOM 2HBA2 HA2     0.083
+ATOM 2CGA  CC      0.633
+ATOM 2O1A  OC     -0.594
+ATOM 2O2A  OC     -0.594
+GROUP   !B-CT3-group
+!sum of this group: -0.512+0.134*3=-0.11
+ATOM 2CMB  CT3    -0.512
+ATOM 2HMB1 HA3     0.134
+ATOM 2HMB2 HA3     0.134
+ATOM 2HMB3 HA3     0.134
+GROUP   !B-CT-CT2-group
+!sum of this group: -0.021+0.113-0.462+0.174*2=-0.022
+ATOM 2CAB  CE1    -0.021 !vinyl parameters updated, adm jr., May 2002
+ATOM 2HAB  HE1     0.113
+ATOM 2CBB  CE2    -0.462
+ATOM 2HBB1 HE2     0.174
+ATOM 2HBB2 HE2     0.174
+GROUP   !C-CT3-group
+!sum of this group: -0.572+0.153*3=-0.113
+ATOM 2CMC  CT3    -0.572
+ATOM 2HMC1 HA3     0.153
+ATOM 2HMC2 HA3     0.153
+ATOM 2HMC3 HA3     0.153
+GROUP   !C-CT-CT2-group
+!sum of this group: -0.023+0.119-0.448+0.17*2=-0.012
+ATOM 2CAC  CE1    -0.023
+ATOM 2HAC  HE1     0.119
+ATOM 2CBC  CE2    -0.448
+ATOM 2HBC1 HE2     0.170
+ATOM 2HBC2 HE2     0.170
+GROUP   !D-CT3-group
+!sum of this group: -0.542+0.151*3=-0.089
+ATOM 2CMD  CT3    -0.542
+ATOM 2HMD1 HA3     0.151
+ATOM 2HMD2 HA3     0.151
+ATOM 2HMD3 HA3     0.151
+GROUP !the additional oxygen at C2D FOR THE D-GROUP
+!sum of this group: -0.618+0.394=-0.224
+ATOM 2OND  OR     -0.618
+ATOM 2HND  HOR     0.394
+GROUP !the lactone-ring
+!sum of this group: 0.04+0.049*2-0.353+0.129*2+0.705-0.503-0.409=-0.164
+ATOM 2CAD  CR      0.004
+ATOM 2HAD1 HCMM    0.049
+ATOM 2HAD2 HCMM    0.049
+ATOM 2CBD  CR     -0.353
+ATOM 2HBD1 HCMM    0.129
+ATOM 2HBD2 HCMM    0.129
+ATOM 2CGD  C=O     0.705
+ATOM 2O2D  O=C    -0.503
+ATOM 2O1D  OR     -0.409
+!THESE WERE ALL THE PARTIAL CHARGES OF THE HEME.
+!SUM OF THE WHOLE HEME-GROUP:
+! 1.031-0.117-0.531-0.11-0.022-0.113-0.012-0.089-0.224-0.164=-0.351
+GROUP !the bound histidin
+!sum of this group: -0.072-0.648+0.247+0.148+0.081-0.628+0.632-0.624+0.220*2=-0.424
+ATOM 1NE2  NR2    -0.072
+ATOM 1CD2  CPH1   -0.648
+ATOM 1HD2  HR3     0.247
+ATOM 1CE1  CPH2    0.148
+ATOM 1HE1  HR1     0.081
+ATOM 1ND1  NR1    -0.628
+ATOM 1CG   CPH1    0.632
+ATOM 1CB   CT2    -0.624
+ATOM 1HB1  HA2     0.220
+ATOM 1HB2  HA2     0.220
+GROUP !the group for the bound oxygen, charges changed to make overall charge=-1
+!sum of this group: -0.100-0.074=-0.174
+ATOM 3O1   OM     -0.100
+ATOM 3O2   OM     -0.074
+!sum of everything: -0.351-0.424-0.174=-0.949
+
+end
+
+read para card flex append
+* additional parameters for heme
+*
+ATOMS
+MASS  -1  CPA       12.01100 C  ! heme alpha-C
+MASS  -1  CPB       12.01100 C  ! heme beta-C
+MASS  -1  CPM       12.01100 C  ! heme meso-C
+MASS  -1  FE        55.84700 Fe ! heme iron 56
+MASS  -1  NPH       14.00700 N  ! heme pyrrole N
+MASS  -1  OM        15.99900 O  ! heme CO/O2 oxygen
+
+BONDS
+!
+!V(bond) = Kb(b - b0)**2
+!
+!Kb: kcal/mole/A**2
+!b0: A
+!
+!atom type Kb          b0
+!
+!NR   CR   365.876     1.4510 !from seperate parametrisation of lactone-ring
+NPH  CR    365.876     1.4510 !adaptation of the above
+CR   CR   306.432     1.5080  !from sepearte parametrisation of lactone-ring
+CPB  CR    306.432     1.5080 !adaptation of the above
+CR   HCMM  342.991     1.0930 !from seperate parametrisation of lactone-ring
+C=O  OR    417.476     1.3550 !''
+C=O  O=C   931.963     1.2220 !''
+CR   C=O   301.539     1.4920 !''
+!CR   OR    363.214     1.4180 !''
+CPB   OR    363.214     1.4180 !adaptation of the above
+OR   HOR   560.905     0.9720 
+
+ANGLES
+!
+!V(angle) = Ktheta(Theta - Theta0)**2
+!
+!V(Urey-Bradley) = Kub(S - S0)**2
+!
+!Ktheta: kcal/mole/rad**2
+!Theta0: degrees
+!Kub: kcal/mole/A**2 (Urey-Bradley)
+!S0: A
+!
+!atom types       Ktheta    Theta0   Kub     S0
+!
+!CR   CR   CR     61.243    109.6080 !from lactone-ring
+CPB   CPB  CR     61.243    109.6080 !adaptation of the above
+!CR   OR   C=O    66.424    108.0550 !from lactone-ring
+CPB   OR   C=O    66.424    108.0550 !adaptation of the above
+!CR   CR   HCMM   45.770    110.5490 !from lactone-ring
+CPB   CR   HCMM   45.770    110.5490 !adaptation of the above
+!CR   CR   CR     61.243    109.6080 !from lactone-ring
+CPB   CR   CR     61.243    109.6080 !adaptation of the above
+CPA   CPB  CR     61.243    109.6080 !adaptation of the above
+CR    CR   HCMM   45.770    110.5490 !from lactone-ring
+CR    CR   C=O    55.917    107.5170 !from lactone-ring
+HCMM  CR   HCMM   37.134    108.8360 !from lactone-ring
+CR    C=O  O=C    67.504    124.4100 !from lactone-ring
+CR    C=O  OR     75.060    109.7160 !from lactone-ring
+C=O   CR   HCMM   46.778    108.3850 !from lactone-ring
+OR    C=O  O=C    83.120    124.4250 !from lactone-ring
+!CR   CR   OR     71.390    108.1330 !from lactone-ring
+CR    CPB  OR     71.390    108.1330 !adaptation of the above
+CPA   CPB  OR     71.390    108.1330 !adaptation of the above
+CPB   CPB  OR     71.390    108.1330 !adaptation of the above
+CPB   OR   HOR    57.069    106.5030
+CT3   CPB  OR     71.390    108.1330
+
+DIHEDRALS
+!
+!V(dihedral) = Kchi(1 + cos(n(chi) - delta))
+!
+!Kchi: kcal/mole
+!n: multiplicity
+!delta: degrees
+!
+!atom types             Kchi    n   delta
+!
+!CR   CR   CR   HCMM    0.320   1   0.00 !from lactone-ring
+CPB   CPB  CR   HCMM    0.320   1   0.00
+CPB   CPB  CR   CR      0.051   1   0.00 
+CPB   CPB  CR   CR      0.341   2   180.00 
+CPB   CPB  CR   CR      0.166   3   0.00
+CPA   CPB  CR   CR      0.051   1   0.00 
+CPA   CPB  CR   CR      0.341   2   180.00 
+CPA   CPB  CR   CR      0.166   3   0.00
+CPB   CPB  OR   C=O    -0.274   1   0.00 
+CPB   CPB  OR   C=O     0.160   3   0.00
+CPA   CPB  OR   C=O    -0.274   1   0.00 
+CPA   CPB  OR   C=O     0.160   3   0.00
+CR    CPB  OR   C=O    -0.274   1   0.00 
+CR    CPB  OR   C=O     0.160   3   0.00
+CPB   CR   CR   HCMM    0.320   1   0.00 
+CPB   CR   CR   HCMM   -0.315   2   180.00 
+CPB   CR   CR   HCMM    0.132   3   0.00
+CPA   CPB  CR   HCMM    0.320   1   0.00 
+CPA   CPB  CR   HCMM   -0.315   2   180.00 
+CPA   CPB  CR   HCMM    0.132   3   0.00
+CPB   CR   CR   C=O     0.033   1   0.00 
+CPB   CR   CR   C=O    -0.078   2   180.00 
+CPB   CR   CR   C=O     0.071   3   0.00
+CPB   OR   C=O  O=C     0.341   1   0.00 
+CPB   OR   C=O  O=C     3.592   2   180.00 
+CPB   OR   C=O  O=C    -0.468   3   0.00
+CPB   OR   C=O  CR     -0.622   1   0.00 
+CPB   OR   C=O  CR      2.741   2   180.00 
+CPB   OR   C=O  CR      0.182   3   0.00
+CR    CR   C=O  O=C     0.412   1   0.00 
+CR    CR   C=O  O=C     0.070   2   180.00 
+CR    CR   C=O  O=C     0.163   3   0.00
+CR    CR   C=O  OR     -0.059   1   0.00 
+CR    CR   C=O  OR     -0.167   2   180.00 
+CR    CR   C=O  OR      0.101   3   0.00
+HCMM  CR   CR   HCMM    0.142   1   0.00 
+HCMM  CR   CR   HCMM   -0.693   2   180.00 
+HCMM  CR   CR   HCMM    0.157   3   0.00
+C=O   CR   CR   HCMM   -0.128   1   0.00 
+C=O   CR   CR   HCMM    0.029   2   180.00
+OR    CR   CPB  HCMM   -0.327   1   0.00 
+OR    CR   CPB  HCMM    0.536   2   180.00 
+OR    CR   CPB  HCMM    0.140   3   0.00
+HCMM  CR   CPB  OR      0.00    1   0.00 !guess because the above three dihedrals already exist
+CR    CR   CPB  OR     -0.344   1   0.00 
+CR    CR   CPB  OR      0.879   2   180.00 
+CR    CR   CPB  OR      0.238   3   0.00
+HCMM  CR   C=O  O=C     0.00    1   0.00 !guess
+HCMM  CR   C=O  OR      0.00    1   0.00 !guess
+CPA   CPB  OR   HOR     0.135   2   180.00 
+CPA   CPB  OR   HOR     0.118   3   0.00 
+CPB   CPB  OR   HOR     0.135   2   180.00 
+CPB   CPB  OR   HOR     0.118   3   0.00
+CT3   CPB  OR   HOR     0.135   2   180.00 
+CT3   CPB  OR   HOR     0.118   3   0.00
+
+IMPROPER
+!
+!V(improper) = Kpsi(psi - psi0)**2
+!
+!Kpsi: kcal/mole/rad**2
+!psi0: degrees
+!note that the second column of numbers (0) is ignored
+!
+!atom types           Kpsi  (n)    psi0
+!
+CPB  CPB  CPA  CR     0.000  0     0.00
+C=O  CR   O=C  OR     0.000  0     0.00 !guess
+
+NONBONDED nbxmod  5 atom cdiel shift vatom vdistance vswitch - 
+cutnb 14.0 ctofnb 12.0 ctonnb 10.0 eps 1.0 e14fac 1.0 wmin 1.5 
+OR      0.000000  -0.152100     1.770000 !from seperate parametrisation of lactone-ring
+HOR     0.000000  -0.046000     0.224500
+O=C     0.000000  -0.120000     1.700000   0.000000  -0.120000     1.400000 
+C=O     0.000000  -0.110000     2.000000 
+CR      0.000000  -0.055000     2.175000   0.000000  -0.010000     1.900000 
+HCMM    0.000000  -0.022000     1.320000
+
+

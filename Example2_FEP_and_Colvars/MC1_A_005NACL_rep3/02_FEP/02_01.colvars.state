@@ -1,0 +1,78 @@
+configuration {
+  step      5000000
+  dt 1.000000e+00
+  version 2018-10-16
+}
+
+colvar {
+  name dist_C1
+  x  1.22292120532640e-01
+}
+
+colvar {
+  name dist_C2
+  x  1.96450490027891e-01
+}
+
+colvar {
+  name dist_C3
+  x  6.76175828275643e-02
+}
+
+colvar {
+  name dist_C4
+  x  3.23021922756140e-01
+}
+
+colvar {
+  name dist_C5
+  x  1.31652994210644e-01
+}
+
+colvar {
+  name dist_O5
+  x  6.78348340757883e-02
+}
+
+restraint {
+  configuration {
+    step 5000000
+    name harmonic1
+  }
+}
+
+restraint {
+  configuration {
+    step 5000000
+    name harmonic2
+  }
+}
+
+restraint {
+  configuration {
+    step 5000000
+    name harmonic3
+  }
+}
+
+restraint {
+  configuration {
+    step 5000000
+    name harmonic4
+  }
+}
+
+restraint {
+  configuration {
+    step 5000000
+    name harmonic5
+  }
+}
+
+restraint {
+  configuration {
+    step 5000000
+    name harmonic6
+  }
+}
+

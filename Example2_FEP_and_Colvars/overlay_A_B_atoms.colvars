@@ -1,0 +1,99 @@
+#Collective variables to overlay vanishing and appearing heavy atoms in the carbohydrate ring of N2P residue
+colvarsRestartFrequency 25000
+colvarsTrajFrequency    5000
+colvar {
+    name dist_C1
+    distance { 
+        group1 { psfSegID P1
+                 atomNameResidueRange AC1 2-2 }
+        group2 { psfSegID P1
+                 atomNameResidueRange BC1 2-2 }
+    }
+}
+
+harmonic {
+    colvars dist_C1
+    forceConstant 20.0
+    centers 0.0
+}
+     
+colvar {
+    name dist_C2
+    distance { 
+        group1 { psfSegID P1
+                 atomNameResidueRange AC2 2-2 }
+        group2 { psfSegID P1
+                 atomNameResidueRange BC2 2-2 }
+    }
+}
+
+harmonic {
+    colvars dist_C2
+    forceConstant 20.0
+    centers 0.0
+}
+     
+colvar {
+    name dist_C3
+    distance { 
+        group1 { psfSegID P1
+                 atomNameResidueRange AC3 2-2 }
+        group2 { psfSegID P1
+                 atomNameResidueRange BC3 2-2 }
+    }
+}
+
+harmonic {
+    colvars dist_C3
+    forceConstant 20.0
+    centers 0.0
+}
+     
+colvar {
+    name dist_C4
+    distance { 
+        group1 { psfSegID P1
+                 atomNameResidueRange AC4 2-2 }
+        group2 { psfSegID P1
+                 atomNameResidueRange BC4 2-2 }
+    }
+}
+
+harmonic {
+    colvars dist_C4
+    forceConstant 20.0
+    centers 0.0
+}
+     
+colvar {
+    name dist_C5
+    distance { 
+        group1 { psfSegID P1
+                 atomNameResidueRange AC5 2-2 }
+        group2 { psfSegID P1
+                 atomNameResidueRange BC5 2-2 }
+    }
+}
+
+harmonic {
+    colvars dist_C5
+    forceConstant 20.0
+    centers 0.0
+}
+     
+colvar {
+    name dist_O5
+    distance { 
+        group1 { psfSegID P1
+                 atomNameResidueRange AO5 2-2 }
+        group2 { psfSegID P1
+                 atomNameResidueRange BO5 2-2 }
+    }
+}
+
+harmonic {
+    colvars dist_O5
+    forceConstant 20.0
+    centers 0.0
+}
+     

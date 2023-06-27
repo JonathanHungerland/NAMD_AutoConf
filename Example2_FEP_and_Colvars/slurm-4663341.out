@@ -1,0 +1,26 @@
+
+Loading HLRNenv
+  Loading requirement: sw.skl slurm
+Module for VMD 1.9.3 loaded.
+Module for Intel(R) MPI Library 2018.4 loaded.
+Module for NAMD 2.13 loaded.
+Starting NAMD run.
+Running FEPmin with stage number 01
+Starting calculation in stage 01.
+Stage check for 01 reads ./01_01.log and gets: Probably correct termination..
+
+Running FEP with stage number 02
+Starting calculation in stage 02.
+Stage check for 02 reads ./02_01.log and gets: Probably correct termination..
+
+Running FEP with stage number 03
+Starting calculation in stage 03.
+Stage check for 03 reads ./03_01.log and gets: Probably correct termination..
+============ Job Information ===================================================
+Submitted: 2023-05-31T16:19:38
+Started: 2023-05-31T16:19:39
+Ended: 2023-05-31T21:22:36
+Elapsed: 303 min, Limit: 720 min, Difference: 417 min
+CPUs: 192, Nodes: 1
+Estimated NPL: 70.6712
+================================================================================

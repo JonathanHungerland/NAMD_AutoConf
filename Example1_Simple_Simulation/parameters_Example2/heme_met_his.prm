@@ -1,0 +1,131 @@
+*Cytochrome c
+*added for cyt c HEME
+*Felix Autenrieth, Emad Tajkhorshid, Jerome Baudry, Zan Luthey-Schulten
+*Modified Heme to take into account cysteine linkage
+*Heme contains one additional hydrogen on CBB and CBC
+*HEMR contains reduced scaled Mulliken charge set
+*HEMO contains oxidized scaled Mulliken charge set
+
+
+ATOMS
+MASS     1 HA 1.00800 H ! nonpolar H
+MASS     2 HR1 1.00800 H ! his he1, (+) his HG,HD2
+MASS     3 HR3 1.00800 H ! neutral his HG, HD2
+MASS     4 H    1.00800 H ! polar H
+MASS     5 CC 12.01100 C ! carbonyl C, asn,asp,gln,glu,cter,ct2
+MASS     6 CT2 12.01100 C ! aliphatic sp3 C for CH2
+MASS     7 CT3 12.01100 C ! aliphatic sp3 C for CH3
+MASS     8 CPH1 12.01100 C ! his CG and CD2 carbons
+MASS     9 CPH2 12.01100 C ! his CE1 carbon
+MASS    10 CPA 12.01100 C ! heme alpha-C
+MASS    11 CPB 12.01100 C ! heme beta-C
+MASS    12 CPM 12.01100 C ! heme meso-C
+MASS    13 NR1 14.00700 N ! neutral his protonated ring nitrogen
+MASS    14 NR2 14.00700 N ! neutral his unprotonated ring nitrogen
+MASS    15 NPH 14.00700 N ! heme pyrrole N
+MASS    16 OC 15.99900 O ! carboxylate oxygen
+MASS    17 S 32.06000 S ! sulphur
+MASS    18 FE 55.84700 Fe ! heme iron 56
+MASS    19 C 12.01100 C ! carbonyl C, peptide backbone
+MASS    20 OT 15.99940 O ! TIPS3P WATER OXYGEN
+MASS    21 HT 1.00800 H ! TIPS3P WATER HYDROGEN
+MASS    -1 OM 15.99900 O ! heme CO/O2 oxygen
+
+!AUTO ANGLES DIHE
+
+BONDS
+!
+!V(bond) = Kb(b - b0)**2
+!
+!Kb: kcal/mole/A**2
+!b0: A
+!
+!atom type Kb          b0
+!
+FE   S     300.000     2.45
+FE   NR2    65.000     2.00
+FE   NPH   270.200     2.00
+OM   FE    250.000     1.8000 ! Heme (6-liganded): O2 ligand (KK 05/13/91) from toppar_all36_prot_heme.str
+OC   FE    250.000     1.8000 ! Adaptation of the above to allow Heme-Glu-Bond
+
+ANGLES
+!
+!V(angle) = Ktheta(Theta - Theta0)**2
+!
+!V(Urey-Bradley) = Kub(S - S0)**2
+!
+!Ktheta: kcal/mole/rad**2
+!Theta0: degrees
+!Kub: kcal/mole/A**2 (Urey-Bradley)
+!S0: A
+!
+!atom types     Ktheta    Theta0   Kub     S0
+!
+NR2  FE   S     0         180.000
+NPH  FE   S     0          90.000
+CC   OC   CC    0          45.000
+NR2  FE   OM    0         180.000
+OM   CM   FE     35.000   180.0000 ! Heme (6-liganded): ligand links (KK 05/13/91) from toppar_all36_prot_heme.str
+OM   FE   NPH     5.000    90.0000 
+OM   OM   FE      0.000   180.0000 
+OC   CM   FE     35.000   180.0000 ! Adaptation of the above three to allow Heme-Glu-Bond
+OC   FE   NPH     5.000    90.0000 
+OC   OC   FE      0.000   180.0000 
+CT3  S    FE    50.0      100.6    !force constant a guess
+CT2  S    FE    50.0      100.6    !equilibrium angle optimized to reproduce
+                                   !CSD survey values
+                                   !107.5pm0.6 (mean, standard error) adm jr., 7/01
+                                   ! from toppar_all36_prot_heme.str
+OM   CM   FE     35.000   180.0000 ! Heme (6-liganded): ligand links (KK 05/13/91) from toppar_all36_prot_heme.str
+OM   FE   NPH     5.000    90.0000 
+OM   OM   FE      0.000   180.0000 
+CC   OC   FE     35.000   180.0000 ! Adaptation of the above to allow Heme-Glu-Bond
+OC   FE   NPH     5.000    90.0000 
+OC   OC   FE      0.000   180.0000 
+
+DIHEDRALS
+!
+!V(dihedral) = Kchi(1 + cos(n(chi) - delta))
+!
+!Kchi: kcal/mole
+!n: multiplicity
+!delta: degrees
+!
+!atom types             Kchi    n   delta
+!
+NR1  CPH2 NR2  FE       0.0000  2   0.00  !guess
+CPH1 CPH1 NR2  FE       0.0000  2   0.00  !guess
+HR1  CPH2 NR2  FE       0.0000  2   0.00  !guess
+HR3  CPH1 NR2  FE       0.0000  2   0.00  !guess
+!X   FE   SS   X        0.0000  4   0.00  !guess,adm jr., 7/01, from toppar_all36_prot_heme.str
+NR2  FE   S    CT3      0.0000  4   0.00  !adaptation of the above, parameter for Met-Heme-Bond
+NR2  FE   S    CT2      0.0000  4   0.00  !adaptation of the above, parameter for Met-Heme-Bond
+!X   CS   SS   X        0.0000  3   0.20  !guess from methanethiol, HS S CT3 HA, adm jr., 7/01 from toppar_all36_prot_heme.str
+CT2  CT2  S    FE       0.0000  3   0.20  !adaptation of the above, parameter for Met-Heme Bond
+HA2  CT2  S    FE       0.0000  3   0.20  !adaptation of the above, parameter for Met-Heme Bond
+HA3  CT3  S    FE       0.0000  3   0.20  !adaptation of the above, parameter for Met-Heme Bond
+CT2  CC   OC   FE       0.0000  3   0.20  !adaptation of the above, parameter for Glu-Heme Bond
+!X   FE   SS   X        0.0000  4   0.00  !guess, adm jr., 7/01, from toppar_all36_prot_heme.str, parameter for Met-Heme Bond
+!X    FE   OM   X       0.0000  4   0.00  !Heme (6-liganded): ligands (KK 05/13/91), from toppar_all36_prot_heme.str, parameter for Oxy-Heme Bond
+CC   OC   FE   NPH      0.0000  4   0.00  !adaptation of the above two, parameter for Glu-Heme Bond
+OC   CC   OC   FE       0.0000  4   0.00  !guess
+
+NPH  FE   NR2  CPH1     0.047   4   0.00  !from Heme-Met-His-Paper, doi.org/10.1002/jcc.20079
+NPH  FE   NR2  CPH2     0.047   4   0.00  !from Heme-Met-His-Paper, doi.org/10.1002/jcc.20079
+NPH  FE   S    CT3      0.040   4   0.00  !from Heme-Met-His-Paper, doi.org/10.1002/jcc.20079
+NPH  FE   S    CT2      0.040   4   0.00  !from Heme-Met-His-Paper, doi.org/10.1002/jcc.20079
+
+IMPROPER
+!
+!V(improper) = Kpsi(psi - psi0)**2
+!
+!Kpsi: kcal/mole/rad**2
+!psi0: degrees
+!note that the second column of numbers (0) is ignored
+!
+!atom types           Kpsi   (n)  psi0
+!
+NR2  CPH1 CPH2 FE     29.4    0   0.00
+
+END
+

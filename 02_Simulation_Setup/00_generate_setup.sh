@@ -185,6 +185,9 @@ default_settings () {
     FEP_lambdastart=0.0
     FEP_lambdaend=1.0
     FEP_lambdawindow="Setting FEP_lambdawindow required"
+
+   #FEPmin settings
+   FEPmin_pressurecontrol="on"
 }
 
 
@@ -465,7 +468,9 @@ FEPmin () {
 
     header $simstage $inputtype
     parameter_settings
-    pressure_control
+    if [ "${FEPmin_pressurecontrol}" == "on" ]; then
+       pressure_control
+    fi
 
 cat >> $simrep.conf <<ENDL
 langevinTemp $GENERAL_temperature

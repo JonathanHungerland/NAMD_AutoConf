@@ -177,8 +177,8 @@ default_settings () {
     FEP_alchfile="$inputfiles.pdb"
     FEP_alchcol="B"
     FEP_alchoutfreq=$( perl -E "say $GENERAL_dcdfreq/$GENERAL_stepspercycle" )
-    FEP_alchvdwlambdaend=1.0
-    FEP_alcheleclambdstart=0.5
+    FEP_alchvdwlambdaend=0.7
+    FEP_alcheleclambdastart=0.4
     FEP_alchvdwshiftcoeff=6.0
     FEP_alchdecouple="on"
     FEP_alchequilsteps=$GENERAL_dcdfreq
@@ -487,7 +487,7 @@ alchOutfile         $simrep.fepout
 alchOutFreq         $FEP_alchoutfreq
 
 alchVdwLambdaEnd    $FEP_alchvdwlambdaend
-alchElecLambdaStart $FEP_alcheleclambdstart
+alchElecLambdaStart $FEP_alcheleclambdastart
 alchVdwShiftCoeff   $FEP_alchvdwshiftcoeff
 alchDecouple        $FEP_alchdecouple
 
@@ -535,7 +535,7 @@ alchOutfile         $simrep.fepout
 alchOutFreq         $FEP_alchoutfreq
 
 alchVdwLambdaEnd    $FEP_alchvdwlambdaend
-alchElecLambdaStart $FEP_alcheleclambdstart
+alchElecLambdaStart $FEP_alcheleclambdastart
 alchVdwShiftCoeff   $FEP_alchvdwshiftcoeff
 alchDecouple        $FEP_alchdecouple
 

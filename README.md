@@ -6,11 +6,10 @@ It only needs a Linux envinroment and the path to the NAMD executables
 so it should work on close to any HPC.
 
 Execution on a SLURM scheduled HPC is done via simply doing e.g.  
-sbatch ../00_Common_Setup/ghlrn.sh 6rko_no_qbl.sh  
+sbatch ./00_Common_Setup/ghlrn.sh 6rko_no_qbl.sh  
 
-For stages that make not use of multiple replicas, a continuation
-is also done automatically if a stage did not crash but also did
-not reach the number of desired steps. To continue a stage do the
-same command.
+For stages that do not use of multiple replicas, stages are checked
+for appropriate completion and the remaining number of steps for said
+stage are calculated.
 
 

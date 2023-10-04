@@ -1136,7 +1136,7 @@ FEP_restarter () {
         echo "Can't find last lambda step for FEP restart. Exiting."
 	exit
     else
-        sed -i -E "s|set LambdaStart.*|set LambdaStart     ${last_lambda}" ${next_conf}
+        sed -i -E "s|set LambdaStart.*|set LambdaStart     ${last_lambda}|g" ${next_conf}
     fi
 
     $namdexecution $next_conf &> $next_log || echo "Non-zero NAMD Exit."

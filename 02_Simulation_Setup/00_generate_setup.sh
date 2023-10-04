@@ -512,7 +512,7 @@ FEP () {
     if [ $( find . -type d -regex "./${simstage}.*" ) ]; then
         echo "Stage ${simstage} already exists."
         cd ${simstage}_FEP
-        stage_runner $simstage
+        FEP_runner $simstage
         return
     fi
     mkcd ${simstage}_FEP
@@ -1130,8 +1130,8 @@ FEP_restarter () {
     sed -i -E "s/set\ currenttimestep\ 0/set\ currenttimestep\ $laststep\nbincoordinates\ ${res}\.restart\.coor\nbinvelocities\ ${res}\.restart\.vel/g" ${next_conf}
 
     #FEP specific
-    sed -i -E "s/alchOutfile         $res.fepout/alchOutfile         ${next}.fepout/g" ${next_conf}
-    last_lambda=$( grep "#NEW FEP WINDOW:" ${res}.fepout | tail -n 1 | grep -Eo "TO.*LAMBDA" | grep -Eo "[0-9]\.[0-9]?" )
+    sed -i -E "s/alchOutfile.*/alchOutfile         ${next}.fepout/g" ${next_conf}
+    last_lambda=$( grep "#NEW FEP WINDOW:" ${res}.fepout | tail -n 1 | grep -Eo "TO.*LAMBDA" | grep -Eo "[0-9]\.[0-9]*" )
     if [ ${last_lambda} == ""]; then
         echo "Can't find last lambda step for FEP restart. Exiting."
 	exit

@@ -548,7 +548,7 @@ set numsteps        $numsteps
 runFEP \$LambdaStart \$LambdaEnd \$LambdaWindow \$numsteps
 ENDL
 echo "Running FEP with stage number $simstage"
-stage_runner $simstage
+FEP_runner $simstage
 }
 
 TREX () {
@@ -1081,6 +1081,68 @@ restarter () {
     firstrun="is_done"
 }
 
+FEP_restarter () {
+    #if GENERAL_restarttype == "simple"
+    #   --> Restarts the current stage until the numsteps in that stage have been calculated.
+    if [[ "$GENERAL_restarttype" == "never" ]]; then
+            echo "Entered restart function but set GENERAL_restarttype=never, exiting."
+            exit
+    fi
+    local currentstage=$1
+    input=$( find_inputname2 $currentstage )
+    current_stage_rep=$( echo $input | sed -E "s/${currentstage}_//g" )
+    current_stage_rep2=$( stripLeadingZeros $current_stage_rep )
+    next_rep=$(( ${current_stage_rep2} + 1 ))
+
+    echo "Initialized automatic restarting of stage $currentstage from last restart point in ${currentstage}_${current_stage_rep}."
+
+    if [ "$next_rep" -lt "10" ]; then
+        next=${currentstage}_0${next_rep}
+    else
+        next=${currentstage}_${next_rep}
+    fi
+    next_conf="${next}.conf"
+    cp "${currentstage}_${current_stage_rep}.conf" "${next_conf}"
+    next_log=$( echo $next_conf | sed -E "s/\.conf/\.log/g" )
+    res=${currentstage}_${current_stage_rep}
+
+    if [[ "${GENERAL_restarttype}" == "simple" ]]; then
+        #Change all restart files to be referring to the current stagerep except for last_stage_last_step reference
+        save_last_stage_last_step=$( grep "set last_stage_last_step" ${next_conf} )
+        sed -i -E "s|\ [^ ]*\.restart\.|\ ${res}\.restart\.|g" ${next_conf}
+        sed -i -E "s|set\ last_stage_last_step .*|${save_last_stage_last_step}|g" ${next_conf}
+    else
+	echo "restarttypes other than simple and FEP are not compatible. Exiting."
+	exit
+    fi
+
+    #Change outputname
+    sed -i -E "s/outputname\ ${res}/outputname\ ${next}/g" ${next_conf}
+
+    #This is the step of which the last restart file was created
+    laststep=$( grep -Eo "RESTART FILE AT STEP.*" ${res}.log | tail -n 1 | awk '{print $5}' )
+    if [[ ${laststep} == "" ]]; then
+        echo "Variable laststep is empty: No restart file was written in the last simulation stage_repetition. Exiting."
+        exit 2;
+    fi
+
+    #In case the inputtype was "NONE", the following will still allow a restart within the current stage.
+    sed -i -E "s/set\ currenttimestep\ 0/set\ currenttimestep\ $laststep\nbincoordinates\ ${res}\.restart\.coor\nbinvelocities\ ${res}\.restart\.vel/g" ${next_conf}
+
+    #FEP specific
+    sed -i -E "s/alchOutfile         $res.fepout/alchOutfile         ${next}.fepout/g" ${next_conf}
+    last_lambda=$( grep "#NEW FEP WINDOW:" ${res}.fepout | tail -n 1 | grep -Eo "TO.*LAMBDA" | grep -Eo "[0-9]\.[0-9]?" )
+    if [ ${last_lambda} == ""]; then
+        echo "Can't find last lambda step for FEP restart. Exiting."
+	exit
+    else
+        sed -i -E "s|set LambdaStart.*|set LambdaStart     ${last_lambda}" ${next_conf}
+    fi
+
+    $namdexecution $next_conf &> $next_log || echo "Non-zero NAMD Exit."
+    firstrun="is_done"
+}
+
 automatic_replica_restarter () {
 #!This is unifinished!
     local currentstage=$1
@@ -1146,6 +1208,36 @@ stage_runner () {
     
     while [[ "$stage_check" == *"NEEDS RESTART" ]] || [[ "$stage_check" == *"trying restart"* ]]; do
         restarter $stage
+        stage_check=$( check_correct_termination $stage )
+        print_stage_check "$stage" "$stage_check"
+    done
+    cd ..
+}
+
+FEP_runner () {
+    local stage=$1
+    if [ -f "./${stage}_01.log" ]; then
+        stage_check=$( check_correct_termination ${stage} )
+        print_stage_check "$stage" "$stage_check"
+        if [[ "$stage_check" == "Probably correct termination." ]]; then
+            echo "Continuing with next stage."
+            cd ..
+            return
+        fi
+        if [[ "${stage_check}" == *"restart from previous stage"* ]]; then
+            FEP_runner $stage
+            return
+        fi
+    else
+        echo "Starting calculation in stage $1."
+        $namdexecution ${stage}_01.conf &> ${stage}_01.log || echo "Non-zero NAMD Exit."
+        firstrun="is_done"
+        stage_check=$( check_correct_termination ${stage} )
+        print_stage_check "$stage" "$stage_check"
+    fi
+    
+    while [[ "$stage_check" == *"NEEDS RESTART" ]] || [[ "$stage_check" == *"trying restart"* ]]; do
+        FEP_restarter $stage
         stage_check=$( check_correct_termination $stage )
         print_stage_check "$stage" "$stage_check"
     done

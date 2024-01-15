@@ -120,7 +120,7 @@ default_settings () {
 
     #standard pressure settings
     GENERAL_usegrouppressure="yes"
-    GENERAL_useflexiblecell="yes"
+    GENERAL_useflexiblecell="no"
     GENERAL_langevinpiston="on"
     GENERAL_langevinpistontarget="1.01325"
     GENERAL_langevinpistonperiod="200.0"
@@ -328,7 +328,7 @@ breathing () {
     pressure_control
     cat >> $simrep.conf <<ENDL
 #Run a breath-in and breath-out of an annealing procedure
-set steps_per_temp [expr {${numsteps}/(2*(${breath_in_temp}-${temperature})/${breath_increment})}]
+set steps_per_temp [expr {int(${numsteps}/(2*(${breath_in_temp}-${GENERAL_temperature})/${breath_increment}))}]
 #make sure steps_per_temp is a multiple of GENERAL_stepspercycle
 set steps_per_temp [expr {\$steps_per_temp - ( \$steps_per_temp % $GENERAL_stepspercycle )}]
 set expected_step \${last_stage_last_step}

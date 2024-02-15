@@ -7,7 +7,7 @@
 #optimal performance gotten with bench_namd_cluster.sh
 #margin parameter needs to be set in the *.conf
 #
-#SBATCH --time=12:00:00 
+#SBATCH --time=4-00:00:00 
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node 12
 #SBATCH --partition qblg.p

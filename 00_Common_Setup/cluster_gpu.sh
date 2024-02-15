@@ -25,8 +25,8 @@ module load hpc-env/12.2 NAMD/3.0b4-multicore-CUDA
 #GPUs automatically.
 
 export NTASKS=$(( ${SLURM_NNODES} * ${SLURM_NTASKS_PER_NODE} ))
-export namdexecution="namd3 +p28"
-export namd3gpu_execution="namd3 +idlepoll +p28 +devices 0"
+export namdexecution="namd3 +p${NTASKS}"
+export namd3gpu_execution="namd3 +idlepoll +p${NTASKS} +devices 0"
 #export replicaexecution="CANT DO REPLICA EXCHANGE IN NAMD3 YET"
 #export sortreplicas=$( which sortreplicas )
 

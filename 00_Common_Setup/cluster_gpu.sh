@@ -16,10 +16,7 @@
 scontrol update jobid=${SLURM_JOB_ID} jobname=$1
 
 # GPU version with CUDASOAintegrate enabled
-module purge
-module load hpc-env slurm
-module load hpc-env/8.3
-module load NAMD3/3.0alpha8-multicore-cuda
+module load hpc-env/12.2 NAMD/3.0b4-multicore-CUDA
 
 #+devices 0 chooses the first GPU device in the list of those
 #that are visible. SLURM assigns GPUs to a job by setting the
@@ -28,10 +25,10 @@ module load NAMD3/3.0alpha8-multicore-cuda
 #GPUs automatically.
 
 export NTASKS=$(( ${SLURM_NNODES} * ${SLURM_NTASKS_PER_NODE} ))
-export namdexecution="namd3 +p12"
-export namd3gpu_execution="namd3 +idlepoll +p1 +devices 0"
-export replicaexecution="CANT DO REPLICA EXCHANGE IN NAMD3 YET"
-export sortreplicas=$( which sortreplicas )
+export namdexecution="namd3 +p28"
+export namd3gpu_execution="namd3 +idlepoll +p28 +devices 0"
+#export replicaexecution="CANT DO REPLICA EXCHANGE IN NAMD3 YET"
+#export sortreplicas=$( which sortreplicas )
 
 source $1
 echo "Starting NAMD run."

@@ -132,7 +132,7 @@ default_settings () {
 
     slowNPT_usegrouppressure=$GENERAL_usegrouppressure
     slowNPT_useflexiblecell=$GENERAL_useflexiblecell
-    slowNPT_langevinpistontarget=$GENERAL_langevinpistonperiod
+    slowNPT_langevinpistontarget=$GENERAL_langevinpistontarget
     slowNPT_langevinpistonperiod=10000
     slowNPT_langevinpistondecay=2500
 

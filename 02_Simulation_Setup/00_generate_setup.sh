@@ -1314,4 +1314,27 @@ replica_runner () {
     cd ..
 }
 
+vmd_set_constraints () {
+    local restrained_selection=$1
+    local restraints_file=$2
+    if [[ $3 == "" ]]; then
+        local reference_pdb=$inputfiles.pdb
+    else
+        local reference_pdb=$2
+    fi
+    if [[ $(which vmd) == "" ]]; then echo "vmd_set_restraints needs to be able to call vmd."; exit; fi
+    vmd -dispdev text -e <<ENDL
+mol new $reference_pdb
+set all [atomselect top "all"]
+\$all set beta 0
+set fix [atomselect top "$restrained_selection"]
+\$fix writepdb $restraints_file
+quit
+ENDL
+    GENERAL_constraints="on"
+    GENERAL_consref=$reference_pdb
+    GENERAL_conskfile=$restraints_file
+    GENERAL_conskcol="B"
+}
+
 main "$@"

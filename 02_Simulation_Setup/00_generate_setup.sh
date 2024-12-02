@@ -39,11 +39,6 @@ simproc
 #
 
 default_settings () {
-    #from VMD build of polymers
-    resnames="GLCA GALN GLCP"
-    polbuild_fromsel_text="name C3 O3 C4 O4"
-    polbuild_tosel_text="name C1 O1 HO1 H1"
-
     #for restarts from wall-time aborts
     firstrun="to_be_done"
 
@@ -69,7 +64,7 @@ default_settings () {
     GENERAL_pairlistspercycle="2"
 
     #interaction distances and scaling
-    GENERAL_exclude="scaled1-4"
+    GENERAL_exclude="oneFourScaling"
     GENERAL_1_4scaling="1.0"
     GENERAL_cutoff="12.0"
     GENERAL_switching="on"
@@ -1076,7 +1071,18 @@ restarter () {
 
     #In case the inputtype was "NONE", the following will still allow a restart within the current stage.
     sed -i -E "s/set\ currenttimestep\ 0/set\ currenttimestep\ $laststep\nbincoordinates\ ${res}\.restart\.coor\nbinvelocities\ ${res}\.restart\.vel/g" ${next_conf}
-
+    
+    #Make sure to use CUDA_NAMD3 when requested, even when restarting from scratch
+    if [ ! -z ${CUDA_NAMD3+x} ]; then
+        if [ "$CUDA_NAMD3" = "on" ]; then
+            old_namdexecution=$namdexecution
+            namdexecution=$namd3gpu_execution
+        elif [ "$CUDA_NAMD3" = "off" ]; then
+            if [ -z ${old_namdexecution} ]; then
+            namdexecution=$old_namdexecution
+            fi
+        fi
+    fi
     $namdexecution $next_conf &> $next_log || echo "Non-zero NAMD Exit."
     firstrun="is_done"
 }
